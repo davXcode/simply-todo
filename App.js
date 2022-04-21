@@ -6,6 +6,7 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import Header from './src/components/Header';
 import axios from 'axios';
@@ -72,7 +73,16 @@ export default function App() {
             <Text style={styles.button}>Add Todo</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView>
+        <FlatList
+          data={todoList}
+          renderItem={({ item }) => (
+            <View style={styles.todoItem}>
+              <Text style={{ textAlign: 'center' }}>{item.todoItem}</Text>
+            </View>
+          )}
+          keyExtractor={(item) => item._id.toString()}
+        />
+        {/* <ScrollView>
           {todoList.map((todo) => (
             <View style={styles.todoItem}>
               <Text key={todo - id} style={{ textAlign: 'center' }}>
@@ -80,7 +90,7 @@ export default function App() {
               </Text>
             </View>
           ))}
-        </ScrollView>
+        </ScrollView> */}
       </View>
     </View>
   );
