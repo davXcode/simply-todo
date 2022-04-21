@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
   View,
   TextInput,
-  Button,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import Header from './src/components/Header';
+import axios from 'axios';
 
 export default function App() {
   const [todoItem, setTodoItem] = useState('');
@@ -18,24 +19,61 @@ export default function App() {
     console.log(todoList);
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // get
+  const fetchData = () => {
+    axios
+      .get(
+        'https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos'
+      )
+      .then((res) => {
+        setTodoList(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log('error', err);
+      });
+  };
+
+  // post
+  const postData = () => {
+    axios
+      .post(
+        'https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos'
+      )
+      .then((res) => {
+        setTodoList(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log('error', err);
+      });
+  };
+
   return (
     <View>
-      <Header title="To-Do List" />
+      <Header title="Sic Mundus Creatus Est - davXcode" />
       <View style={styles.container}>
         <View>
+          {/* input */}
           <TextInput
             placeholder="Enter To-Do item"
             style={styles.textInput}
             onChangeText={(text) => setTodoItem(text)}
             value={todoItem}
           />
-          <Button title="Add To-Do" onPress={addTodoList} />
+          <TouchableOpacity style={styles.buttonAdd} onPress={addTodoList}>
+            <Text style={styles.button}>Add Todo</Text>
+          </TouchableOpacity>
         </View>
         <ScrollView>
           {todoList.map((todo) => (
             <View style={styles.todoItem}>
-              <Text key={todo} style={{ textAlign: 'center' }}>
-                {todo}
+              <Text key={todo - id} style={{ textAlign: 'center' }}>
+                {todo.todoItem}
               </Text>
             </View>
           ))}
@@ -62,5 +100,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: 'gray',
+  },
+  button: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 20,
+  },
+  buttonAdd: {
+    backgroundColor: 'pink',
+    borderRadius: 20,
+    marginLeft: 30,
+    marginRight: 30,
+    padding: 5,
   },
 });

@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
 
 const Header = (props) => {
   return (
@@ -11,12 +11,12 @@ const Header = (props) => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#f2f2f2",
+    backgroundColor: 'pink',
     padding: 15,
   },
   headerTitle: {
     marginTop: 40,
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 20,
   },
 });
