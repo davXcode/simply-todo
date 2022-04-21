@@ -4,12 +4,12 @@ import {
   Text,
   View,
   TextInput,
-  ScrollView,
   TouchableOpacity,
   FlatList,
 } from 'react-native';
 import Header from './src/components/Header';
 import axios from 'axios';
+import { AntDesign } from '@expo/vector-icons';
 
 export default function App() {
   const [todoItem, setTodoItem] = useState('');
@@ -49,9 +49,25 @@ export default function App() {
           console.log(error);
         });
       setTodoItem('');
+      fetchData();
     } else {
       alert("There's no system safe");
     }
+  }
+
+  //delete
+  function deleteData(par1) {
+    axios
+      .delete(
+        `https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos/${par1}`
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(() => {
+        alert('Error Delete Data');
+      });
+    fetchData();
   }
 
   return (
@@ -77,20 +93,20 @@ export default function App() {
           data={todoList}
           renderItem={({ item }) => (
             <View style={styles.todoItem}>
+              <TouchableOpacity onPress={() => deleteData(item._id)}>
+                <AntDesign
+                  name="delete"
+                  size={20}
+                  style={{
+                    color: 'red',
+                  }}
+                ></AntDesign>
+              </TouchableOpacity>
               <Text style={{ textAlign: 'center' }}>{item.todoItem}</Text>
             </View>
           )}
           keyExtractor={(item) => item._id.toString()}
         />
-        {/* <ScrollView>
-          {todoList.map((todo) => (
-            <View style={styles.todoItem}>
-              <Text key={todo - id} style={{ textAlign: 'center' }}>
-                {todo.todoItem}
-              </Text>
-            </View>
-          ))}
-        </ScrollView> */}
       </View>
     </View>
   );
@@ -113,6 +129,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: 'gray',
+    textAlign: 'center',
   },
   button: {
     color: 'white',
