@@ -14,17 +14,12 @@ export default function App() {
   const [todoItem, setTodoItem] = useState('');
   const [todoList, setTodoList] = useState([]);
 
-  const addTodoList = () => {
-    setTodoList([...todoList, todoItem]);
-    console.log(todoList);
-  };
-
   useEffect(() => {
     fetchData();
   }, []);
 
   // get
-  const fetchData = () => {
+  function fetchData() {
     axios
       .get(
         'https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos'
@@ -36,22 +31,27 @@ export default function App() {
       .catch((err) => {
         console.log('error', err);
       });
-  };
+  }
 
   // post
-  const postData = () => {
-    axios
-      .post(
-        'https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos'
-      )
-      .then((res) => {
-        setTodoList(res.data);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log('error', err);
-      });
-  };
+  function postData(text) {
+    if (todoItem !== '') {
+      axios
+        .post(
+          'https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos',
+          {
+            todoItem: text,
+          }
+        )
+        .then((res) => console.log(res))
+        .catch((error) => {
+          console.log(error);
+        });
+      setTodoItem('');
+    } else {
+      alert("There's no system safe");
+    }
+  }
 
   return (
     <View>
@@ -65,7 +65,10 @@ export default function App() {
             onChangeText={(text) => setTodoItem(text)}
             value={todoItem}
           />
-          <TouchableOpacity style={styles.buttonAdd} onPress={addTodoList}>
+          <TouchableOpacity
+            style={styles.buttonAdd}
+            onPress={() => postData(todoItem)}
+          >
             <Text style={styles.button}>Add Todo</Text>
           </TouchableOpacity>
         </View>
