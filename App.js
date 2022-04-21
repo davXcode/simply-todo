@@ -17,7 +17,7 @@ export default function App() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, []); //waktu mau scoring di tambahkan todoList
 
   // get
   function fetchData() {
@@ -44,7 +44,10 @@ export default function App() {
             todoItem: text,
           }
         )
-        .then((res) => console.log(res))
+        .then((res) => {
+          console.log(res);
+          fetchData();
+        })
         .catch((error) => {
           console.log(error);
         });
@@ -63,11 +66,11 @@ export default function App() {
       )
       .then((res) => {
         console.log(res);
+        fetchData();
       })
       .catch(() => {
         alert('Error Delete Data');
       });
-    fetchData();
   }
 
   return (
@@ -92,7 +95,23 @@ export default function App() {
         <FlatList
           data={todoList}
           renderItem={({ item }) => (
-            <View style={styles.todoItem}>
+            <View
+              style={{
+                ...styles.todoItem,
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+              }}
+            >
+              <TouchableOpacity onPress={() => updateData(item._id)}>
+                <AntDesign
+                  name="edit"
+                  size={20}
+                  style={{
+                    color: 'blue',
+                  }}
+                ></AntDesign>
+              </TouchableOpacity>
+              <Text style={{}}>{item.todoItem}</Text>
               <TouchableOpacity onPress={() => deleteData(item._id)}>
                 <AntDesign
                   name="delete"
@@ -102,7 +121,6 @@ export default function App() {
                   }}
                 ></AntDesign>
               </TouchableOpacity>
-              <Text style={{ textAlign: 'center' }}>{item.todoItem}</Text>
             </View>
           )}
           keyExtractor={(item) => item._id.toString()}
@@ -115,6 +133,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     padding: 60,
+    display: 'flex',
   },
   textInput: {
     padding: 10,
