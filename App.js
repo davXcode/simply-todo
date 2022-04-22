@@ -88,13 +88,7 @@ export default function App() {
   return (
     <View>
       <Header title="Sic Mundus Creatus Est - davXcode" />
-      <Modal
-        animationType="slide"
-        visible={updateData}
-        onRequestClose={() => toggleUpdateDataClose()}
-      >
-        <UpdateData closeModal={toggleUpdateDataClose} />
-      </Modal>
+
       <View style={styles.container}>
         <View>
           {/* input */}
@@ -121,6 +115,17 @@ export default function App() {
                 flexDirection: 'row',
               }}
             >
+              <Modal
+                animationType="slide"
+                visible={updateData}
+                onRequestClose={() => toggleUpdateDataClose()}
+              >
+                <UpdateData
+                  closeModal={toggleUpdateDataClose}
+                  identity={item._id}
+                />
+              </Modal>
+
               <TouchableOpacity onPress={() => toggleUpdateData()}>
                 <AntDesign
                   name="edit"
