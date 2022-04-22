@@ -6,10 +6,12 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  Modal,
 } from 'react-native';
 import Header from './src/components/Header';
 import axios from 'axios';
 import { AntDesign } from '@expo/vector-icons';
+import UpdateData from './src/components/updateData';
 
 export default function App() {
   const [todoItem, setTodoItem] = useState('');
@@ -73,9 +75,26 @@ export default function App() {
       });
   }
 
+  //popup delete
+  const [updateData, setUpdateData] = useState(false);
+  function toggleUpdateData() {
+    setUpdateData(true);
+  }
+
+  function toggleUpdateDataClose() {
+    setUpdateData(false);
+  }
+
   return (
     <View>
       <Header title="Sic Mundus Creatus Est - davXcode" />
+      <Modal
+        animationType="slide"
+        visible={updateData}
+        onRequestClose={() => toggleUpdateDataClose()}
+      >
+        <UpdateData closeModal={toggleUpdateDataClose} />
+      </Modal>
       <View style={styles.container}>
         <View>
           {/* input */}
@@ -102,7 +121,7 @@ export default function App() {
                 flexDirection: 'row',
               }}
             >
-              <TouchableOpacity onPress={() => updateData(item._id)}>
+              <TouchableOpacity onPress={() => toggleUpdateData()}>
                 <AntDesign
                   name="edit"
                   size={20}
