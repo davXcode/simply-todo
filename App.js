@@ -19,7 +19,7 @@ export default function App() {
 
   useEffect(() => {
     fetchData();
-  }, []); //waktu mau scoring di tambahkan todoList
+  }, []);
 
   // get
   function fetchData() {
