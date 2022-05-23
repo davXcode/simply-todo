@@ -25,7 +25,8 @@ export default function App() {
   function fetchData() {
     axios
       .get(
-        'https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos'
+        // 'https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos'
+        'https://api.kontenbase.com/query/api/v1/8d1ac9f9-ca5f-4641-9306-5b00d69c9f08/todos'
       )
       .then((res) => {
         setTodoList(res.data);
@@ -41,7 +42,8 @@ export default function App() {
     if (todoItem !== '') {
       axios
         .post(
-          'https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos',
+          // 'https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos',
+          'https://api.kontenbase.com/query/api/v1/8d1ac9f9-ca5f-4641-9306-5b00d69c9f08/todos',
           {
             todoItem: text,
           }
@@ -64,7 +66,8 @@ export default function App() {
   function deleteData(par1) {
     axios
       .delete(
-        `https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos/${par1}`
+        // `https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos/${par1}`
+        `https://api.kontenbase.com/query/api/v1/8d1ac9f9-ca5f-4641-9306-5b00d69c9f08/todos/${par1}`
       )
       .then((res) => {
         console.log(res);

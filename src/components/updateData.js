@@ -13,7 +13,8 @@ import axios from 'axios';
 function fetchData() {
   axios
     .get(
-      'https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos'
+      // 'https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos'
+      'https://api.kontenbase.com/query/api/v1/8d1ac9f9-ca5f-4641-9306-5b00d69c9f08/todos'
     )
     .then((res) => {
       setTodoList(res.data);
@@ -27,7 +28,8 @@ function fetchData() {
 function updateTodo(par1, par2) {
   axios
     .patch(
-      `https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos/${par1}`,
+      // `https://api.kontenbase.com/query/api/v1/5ad2e50c-b9dc-48a9-a743-4229807ee0ef/todos/${par1}`,
+      `https://api.kontenbase.com/query/api/v1/8d1ac9f9-ca5f-4641-9306-5b00d69c9f08/todos/${par1}`,
       { todoItem: par2 }
     )
     .then((res) => {
